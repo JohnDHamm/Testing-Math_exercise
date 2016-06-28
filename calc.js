@@ -35,27 +35,32 @@ $(document).ready(function(){
 	
 
 	function clearInput () {
-		inputEl.empty();
+		inputEl.val("");
+		inputEl.focus();
 	}
 
 	function getFirstNumber(){
-		firstNum = inputEl.val();
-		console.log("firstNum", firstNum);
+		firstNum = parseFloat(inputEl.val());
 	}
 
 	function calculateResult() {
-		secondNum = inputEl.val();
-		console.log("secondNum", secondNum);
-		if (mathType = "add"){
+		secondNum = parseFloat(inputEl.val());
+		if (mathType === "add"){
 			result = add(firstNum, secondNum);
-		} else if (mathType = "subtract"){
+		} else if (mathType === "subtract"){
 			result = subtract(firstNum, secondNum);
-		} else if (mathType = "multiply"){
+		} else if (mathType === "multiply"){
 			result = multiply(firstNum, secondNum);
-		} else if (mathType = "divide"){
+		} else if (mathType === "divide"){
 			result = divide(firstNum, secondNum);
+		} else if (mathType === "square"){
+			result = square(firstNum);
+		} else if (mathType === "square root"){
+			result = squareRoot(firstNum);
 		}
-		inputEl.val = result;
+
+		console.log("result: ", result);
+		inputEl.val(result);
 	}
 
 
@@ -67,20 +72,30 @@ $(document).ready(function(){
 		clearInput();
 	})
 	$("#subtractBtn").click(function() {
+		getFirstNumber();
 		mathType = "subtract";
+		clearInput();
 	})
 	$("#multiplyBtn").click(function() {
+		getFirstNumber();
 		mathType = "multiply";
+		clearInput();
 	})
 	$("#divideBtn").click(function() {
+		getFirstNumber();
 		mathType = "divide";
+		clearInput();
 	})
-	// $("#squareBtn").click(function() {
-	// 	mathType = "square";
-	// })
-	// $("#sqrRtBtn").click(function() {
-	// 	mathType = "square root";
-	// })
+	$("#squareBtn").click(function() {
+		getFirstNumber();
+		mathType = "square";
+		calculateResult();
+	})
+	$("#sqrRtBtn").click(function() {
+		getFirstNumber();
+		mathType = "square root";
+		calculateResult();
+	})
 
 	//enter key event listener
 	inputEl.keyup(function(key){
